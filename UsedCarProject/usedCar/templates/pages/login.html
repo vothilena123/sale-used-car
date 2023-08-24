@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap-css/bootstrap.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" type="text/css" />      
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/b43c192976.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <style>
+        video{
+            width:100%;
+            height: 100%;
+            object-fit:cover;
+        }
+        h2{
+            color:#fff;
+        }
+
+        .justify-content{
+            justify-content:space-around;
+        }
+
+        .overlay{
+            position:absolute;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            background-color: #333;
+            opacity: 0.7;
+        }
+
+        .color-white{
+            color: white;
+            
+          }
+
+        @media (max-width:550px){
+            .btn{
+                font-size:1rem!important;
+            }
+            .btn-back{
+                width:114px;
+            }
+        }
+
+        
+    </style>
+</head>
+<body>
+    <section class="vh-100 bg-image" >
+        <video src="static/images/ROLLS ROYCE.mp4" autoplay muted loop></video>
+        <div class="overlay"></div>
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+            <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6" style="position: absolute;top:55px; color: white;">
+                <div class="card" style="border-radius: 15px; background-color:unset; border: 0;">
+                    <div class="card-body p-5">
+                    <h2 class="text-uppercase text-center mb-5">Account Login</h2>
+                   
+                    <p class="text-center" style="color:red; margin-top:-20px">
+                        {% for message in messages %}
+                        {{message}}
+                        {% endfor %}
+                    </p>
+
+                    <form action="" method="POST">
+                        {% csrf_token %}
+
+                      <div class="form-outline mb-4">
+                        <input type="text" name = "username" id="form3Example3cg" class="form-control form-control-lg" />
+                        <label class="form-label" for="form3Example3cg">Your Name</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                        <input type="password" name="password" id="form3Example4cg" class="form-control form-control-lg" />
+                        <label class="form-label" for="form3Example4cg">Password</label>
+                      </div>
+          
+                      
+                      <div class="d-flex justify-content">
+                        
+                        <button type="submit" class="btn btn-info btn-lg btn-block color-white">Login</button>
+                    </div>
+          
+                      <p class="small mb-5 pb-lg-2" style="padding-top: 50px; text-align: center;"><a class="text-muted" style="color:#a4b2be!important;" href="#!">Forgot password?</a></p>
+                      <p style="text-align: center;">Don't have an account? <a href="/register" class="link-info">Register here</a></p>
+          
+                    </form>
+
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

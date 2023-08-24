@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'assets/bootstrap-css/bootstrap.min.css' %}" type="text/css" />
+  <link rel="stylesheet" href="{% static 'assets/css/css-sheet.css' %}" type="text/css" />      
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <script src="https://kit.fontawesome.com/b43c192976.js" crossorigin="anonymous"></script>
+  <title>{% block title %}{% endblock %}</title> </title>
+   
+</head>
+
+<style>
+  .product-status,
+  .product-year,
+  .km-run{
+      width: fit-content;
+      padding-left: 5px;
+      padding-right: 5px;
+      background-color: #d2d6d8;
+      border-radius: 5px;
+      margin-right: 5px;
+  }
+
+  .detail{
+    background-color: #e2e5e7;
+    font-family: 'Arsenal', sans-serif; 
+    padding-top: 2rem;
+  }
+
+  .mtop-4{
+    margin-top: 4px;
+  }
+
+  .mright-30{
+    margin-right: 30px;
+  }
+
+  .mright-5{
+    margin-right: 5px;
+  }
+
+  .img-100{
+    max-height:335px;
+    width: 100%;
+  }
+
+  .color-white{
+    color: white;
+    
+  }
+
+  .post-owner-img{
+    width: 55px;
+    height: 55px;
+    border-radius: 100%;
+  }
+
+  @media (max-width:768px){
+    .car-img{
+      padding-top: 30px;
+    }
+
+    .detail-description-large{
+      display: none
+    }
+
+  }
+
+  @media (min-width:769px){
+    .detail-description-small{
+      display: none;
+    }
+  }
+
+  @media (max-width: 350px){
+    .location-time{
+      display: block;
+    }
+  }
+
+  @media (min-width: 351px){
+    .location-time{
+      display: flex;
+    }
+  }
+
+  .slideshow-container {
+    position: relative;
+    margin: auto;
+    width: 80%;
+  }
+  
+  .mySlides {
+    display: none;
+    
+  }
+  
+  img {vertical-align: middle;}
+  
+
+  .fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+
+  .dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.8s ease;
+  }
+
+  .active {
+    background-color: #717171;
+  }
+
+  @keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+
+  @media (min-width: 991px) and (max-width: 1400px) {
+    img{
+      height: 285px;
+      
+    }
+  }
+
+  @media (min-width:769px) and (max-width:990px){
+    img{
+      height: 211px;
+    }
+  }
+
+  @media (max-width:768px) {
+    .mySlides {
+      display: none;
+      position: relative;
+      width: 100%;
+      padding-bottom: 60%;
+    }
+
+    .c-image{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .car-owner{
+    position: relative;
+    margin: auto;
+    width: 90%;
+  }
+
+  .m-top-bot-auto{
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .m-top1-bot0{
+    margin-top: 1rem;
+    margin-bottom: 0!important;
+  }
+</style>
+
+<body>
+    
+    <div class="detail">
+      <div class="container pb-3" style="background-color: #fff;" >
+        <div class="row justify-content-center">
+          <div class="col-md-7 align-self-center text-center car-img">
+            <div class= "slideshow-container">
+              
+    
+              {% for img in postImages %}  
+                <div class = "mySlides fade mb-3">
+                  <img src="{{img.carImage.url}}" class="c-image card-img-top car-image img-100 " alt="" >
+                </div>  
+              {% endfor %}
+
+              
+            </div>
+            <div style="text-align:center" >
+              {% for img in postImages %}  
+                <span class="dot"></span> 
+
+              {%endfor %}
+              
+            </div>
+          </div>
+
+          <div class="col-md-5 detail-description-large" >
+            <h2 class="my-3">{{postDetail.carName }}</h2>
+            <div class="d-flex">
+              <div class="product-status">{{postDetail.carStatus}}</div>
+              <div class="product-year">{{postDetail.yearOfManufacture}}</div>
+              <div class="km-run">{{postDetail.kilimetersRun}} Km</div>
+            </div>
+            <h4 class="mt-2">Car Details</h4>
+            <ul>
+              <li>Tranmission: {{postDetail.transmission}}</li>
+              <li>Fuel: {{postDetail.fuel}}</li> </li>
+              <li>Color: {{postDetail.color}}</li> </li>
+            </ul>
+            <h4 class="mt-2">Descriptions</h4>
+            <p>{{postDetail.description}}</p>
+            <h3 class="text-success fw-bold">$ {{postDetail.carPrice}} </h3>
+            <div class="d-flex">
+              <i class="fas fa-map-marker-alt mtop-4 mright-5"></i>
+              <p class="mright-30">{{postDetail.locationSell}}</p>
+              <i class="far fa-clock mtop-4 mright-5"></i>
+              <p>{{postDetail.createdAt}}</p>
+            </div>
+            
+            
+          
+            <div >
+              <p class="mt-3 fs-5">See the car directly</p>
+              <button class="btn btn-success ">Contact Now</button>
+              <button onClick="location.href='/'" class="btn btn-success ms-3"> Back Home</button>
+
+            </div>
+            
+
+            
+          </div>
+
+          <div class="detail-description-small">
+            <div class="text-center">
+              <h3 class="text-success fw-bold mt-3">$ {{postDetail.carPrice}} </h3>
+              <h2 class="my-3">{{postDetail.carName }}</h2>
+              <div class="d-flex justify-content-center mb-3">
+                <div class="product-status">{{postDetail.carStatus}}</div>
+                <div class="product-year">{{postDetail.yearOfManufacture}}</div>
+                <div class="km-run">{{postDetail.kilimetersRun}} Km</div>
+              </div>
+              <button onClick="location.href='/'" class="btn btn-success mright-30"> Back Home</button>
+              <button class="btn btn-success mright-30">Contact</button>
+
+            </div>
+            <h4 class="mt-5">Car Details</h4>
+            <ul>
+              <li>Tranmission: {{postDetail.transmission}}</li>
+              <li>Fuel: {{postDetail.fuel}}</li> </li>
+              <li>Color: {{postDetail.color}}</li> </li>
+            </ul>
+            <h4 class="mt-2">Descriptions</h4>
+            <p>{{postDetail.description}}</p>
+            <div class="location-time">
+              <i class="fas fa-map-marker-alt mtop-4 mright-5"></i>
+              <p class="mright-30">{{postDetail.locationSell}}</p>
+              <i class="far fa-clock mtop-4 mright-5"></i>
+              <p>{{postDetail.createdAt}}</p>
+            </div>
+
+            <div >
+              <p class="mt-3 fs-5">See the car directly</p>
+              <button class="btn btn-success ">Contact Now</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="container mt-5 pt-5" style="background-color: #fff;" >
+        <div class="car-owner">
+          <div class="row justify-content-center ">
+            <div class="col-md-3 d-flex align-items-center">
+              <img src="{{postOwnerProfile.profileImage.url}}" class="img-80 post-owner-img me-3">
+              <div>
+                <p style="font-size:25px;" class="m-top-bot-auto ps-3">{{postDetail.user}}</p>
+                
+                <button onClick="location.href='/profile/{{postOwner.username}}'" class="btn btn-success " style="width: max-content;">Personal Page</button>
+                
+              </div>
+            </div>
+  
+            <div class="col-md-9">
+
+              <div class="row ">
+                <div class="col-md-5 ">
+                  <div class="d-flex align-items-center">
+                    <p class="col-md-6 m-top1-bot0">Phone Number: </p>
+                    <p class="col-md-6 m-top1-bot0 text-success">{{postOwnerProfile.phoneNumber}}</p>
+                  </div>
+
+                  <div class="d-flex">
+                    <p class="col-md-6 m-top1-bot0">Response: </p>
+                    <p class="col-md-6 m-top1-bot0 text-success">Some Hours</p>
+                  </div>
+                </div>
+
+                <div class="col-md-7 ">
+                  <div class="d-flex">
+                    <p class="col-md-3 m-top1-bot0">Join at: </p>
+                    <p class="col-md-9 m-top1-bot0 text-success">{{postOwner.date_joined.date}}</p>
+                  </div>
+
+                  <div class="d-flex">
+                    <p class="col-md-3 m-top1-bot0">Address: </p>
+                    <p class="col-md-9 m-top1-bot0 text-success">{{postOwnerProfile.detailAdress}}</p>
+                  </div>
+                </div>
+                </div>
+              </div>
+  
+            </div>
+          </div>
+          
+
+
+         
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-center text-white " style="background-color:rgba(0, 0, 0, 0.2);">
+      <!-- Grid container -->
+      <div class="container pt-4">
+        <!-- Section: Social media -->
+        <section class="mb-4">
+          <!-- Facebook -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-dark m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+    
+          <!-- Twitter -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-dark m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-twitter"></i
+          ></a>
+    
+          <!-- Google -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-dark m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-google"></i
+          ></a>
+    
+          <!-- Instagram -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-dark m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-instagram"></i
+          ></a>
+    
+          <!-- Linkedin -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-dark m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+          <!-- Github -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-dark m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-github"></i
+          ></a>
+        </section>
+        <!-- Section: Social media -->
+      </div>
+      <!-- Grid container -->
+    
+      <!-- Copyright -->
+      <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2); ">
+        © 2023 Copyright:
+        <a class="text-dark" href="#">NaVTLGCS190745@fpt.edu.vn</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+
+   <script>
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {slideIndex = 1}    
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";  
+      dots[slideIndex-1].className += " active";
+      setTimeout(showSlides, 2000); // Change image every 2 seconds
+    }
+   </script>
+
+   
+    
+    
+</body>
+</html>

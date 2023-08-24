@@ -1,0 +1,154 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Predict Result Page{% endblock %}
+
+{% block content %}
+
+<style>
+    
+</style>
+
+
+
+<div class="container" style="font-family: 'Arsenal', sans-serif; ">
+    <div class="row">
+        <div class="col-md-4 mt-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    Car Name
+                </div>
+                <div class="card-body">
+                    <marquee behavior="" direction="">
+                        <h3 class="my-4 fw-bold text-capitalize" text-capitalize>{{manufacturer_name}}</h3>
+                    </marquee>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 mt-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    Technical information
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a class="text-decoration-none text-dark" href="#">
+                                <div class="card my-card shadow">
+                                    <div class="card-body text-center">
+                                        <h4>Model <i class="fas fa-car-alt"></i></h4>
+                                        <h3 class="fw-bold text-capitalize">{{ model_name }}</h3>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="text-decoration-none text-dark" href="#">
+                                <div class="card my-card shadow">
+                                    <div class="card-body text-center">
+                                        <h4>Transmission <i class="fas fa-cogs"></i></h4>
+                                        <h3 class="fw-bold text-capitalize">{{ transmission }}</h3>
+                                        
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="text-decoration-none text-dark" href="#">
+                                <div class="card my-card shadow">
+                                    <div class="card-body text-center">
+                                        <h4>Engine Type <i class="fas fa-gas-pump"></i></h4>
+                                        <h3 class="fw-bold text-capitalize">{{ engine_type }}</h3>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 mt-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                Status Information
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <a class="text-decoration-none text-dark" href="#">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Color <i class="fas fa-palette"></i></h4>
+                                    <h3 class="fw-bold text-capitalize">{{ color }}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="text-decoration-none text-dark" href="#">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Kilometers Run <i class="fas fa-ruler-horizontal"></i></h4>
+                                    <h3 class="fw-bold text-capitalize">{{ odometer_value }}</h3>
+                                    
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="text-decoration-none text-dark" href="#">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Year Produced <i class="fas fa-calendar-alt"></i></h4>
+                                    <h3 class="fw-bold text-capitalize">{{ year_produced }}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-3">
+                        <a class="text-decoration-none text-dark" href="#">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Body Type <i class="fas fa-shapes"></i></h4>
+                                    <h3 class="fw-bold text-capitalize">{{ body_type }}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 mt-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                Predicted Price
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a class="text-decoration-none text-dark" href="#">
+                            <div class="card my-card shadow">
+                                <div class="card-body text-center">
+                                    <h4>Predicted Price <i class="fas fa-money-check-alt"></i></h4>
+                                    <h3 id="prediction" class="fw-bold text-capitalize">$ {{prediction}}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+   
+</script>
+
+    
+{% endblock %}

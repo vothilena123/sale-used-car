@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap-css/bootstrap.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'assets/css/css-sheet.css' %}" type="text/css" />      
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/b43c192976.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+    <style>
+
+        body{
+            
+        }
+        video{
+            width:100%;
+            height: 100%;
+            object-fit:cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .justify-content{
+            justify-content:space-around;
+        }
+        .block{
+            display: block;
+        }
+        .mt-10{
+            margin-top: 10px;
+        }
+        .file{
+            background-color: #fff;
+            padding-top: 10px;
+            border-bottom-width: 10px;
+            padding-bottom: 10px;
+            padding-left: 10px;
+            border-radius: .3rem;
+        }
+        .color-black{
+            color: black;
+        }
+        
+        @media (max-width:550px){
+            .btn{
+                font-size:1rem!important;
+            }
+            .btn-back{
+                width:114px;
+            }
+        }
+        
+        .card{
+            font-family: 'Arsenal', sans-serif!important; 
+        }
+
+        input{
+            font-family: 20px;
+        }
+    </style>
+</head>
+<body>
+    <section class="vh-100 bg-image" >
+        <video src="static/images/lambo.mp4" autoplay muted loop></video>
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+            <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-9 col-lg-7 col-xl-6" style="position: absolute;top: 0; color: white;">
+                <div class="card" style="border-radius: 15px; background-color:unset; border: 0;">
+                    <div class="card-body p-5">
+                    <h2 class="text-center mb-5">Account Setting for {{user.username}}</h2> 
+               
+
+                    <form action="" method = "POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="form-outline mb-4 ">
+                        <label class="form-label block" for="">Profile Image</label>
+                        
+                        <div class="file">
+                            <img width="100" height="100" class="block " src="{{user_profile.profileImage.url}}" />
+                            <input type="file" name="image" value="" class="shadow-none bg-gray-100 mt-10 color-black">
+                        </div>
+
+                        <div class="form-outline mb-4 ">
+                            <label class="form-label block" for="">Background Image</label>
+                            
+                            <div class="file">
+                                <img width="100" height="100" class="block " src="{{user_profile.backgroundImage.url}}" />
+                                <input type="file" name="backgroundImage" value="" class="shadow-none bg-gray-100 mt-10 color-black">
+                            </div>
+                        
+                        </div>
+
+                        <div class="form-outline mb-4">
+                        <label class="form-label" for="form3Example3cg">About me</label>
+                        <textarea id="form3Example3cg" name="about" rows="3"  class="form-control form-control-lg">{{user_profile.about}}</textarea>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                        <label class="form-label" for="form3Example4cg">Location</label>
+                        <input value="{{user_profile.location}}" name="location" type="text" id="form3Example4cg" class="form-control form-control-lg" />
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example4cg">Detail Address</label>
+                            <input value="{{user_profile.detailAdress}}" name="detailAdress" type="text" id="form3Example4cg" class="form-control form-control-lg" />
+                         </div>
+
+                         <div class="form-outline mb-4">
+                            <label class="form-label" for="form3Example4cg">Phone Number</label>
+                            <input value="{{user_profile.phoneNumber}}" name="phoneNumber" type="text" id="form3Example4cg" class="form-control form-control-lg" />
+                         </div>
+
+                        <div class="d-flex justify-content">
+                            <a href="/">
+                            <button type="button" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body btn-back" style="margin-right: 170px; ">Cancel</button>                   
+                            </a>
+                            <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Save</button>
+                        </div>
+
+                       
+
+                    </form>
+
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

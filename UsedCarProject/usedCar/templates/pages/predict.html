@@ -1,0 +1,225 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Predict Page{% endblock %}
+
+{% block content %}
+
+<style>
+    .form-control-lg{
+        font-size:1rem;
+    }
+
+    .select{
+        min-height: calc(1.5em + (1rem + 2px));
+        padding: .5rem 1rem;
+        font-size: 1.25rem;
+        border-radius: .3rem;
+        width:100%;
+        font-size: 1rem;
+        border: 1px solid #ced4da;
+        font-family: 'Arsenal', sans-serif; 
+    }
+
+    .btn {
+        background-color: #b8babc!important;
+        font-family: 'Arsenal', sans-serif; 
+    }
+
+    input, label, textarea, p{
+        font-family: 'Arsenal', sans-serif; 
+    }
+
+   label{
+    color: coral;
+   }
+
+   .plus-icon{
+    color: lightskyblue;
+    font-size: 12px;
+   }
+
+   .add-picture{
+    color: lightskyblue;
+   }
+
+   .add-pic-button{
+    cursor: pointer;
+   }
+
+   .remove-icon{
+    cursor: pointer;
+   }
+
+   
+
+   
+
+</style>
+
+<section class="bg-image" style="background-color: #d2d6d8;">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+        <div class="container h-100 p-5">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-10 col-lg-9 col-xl-7" style="background-color: #fff;">
+            <div class="card" style="border-radius: 15px; background-color:unset; border: 0;">
+                <div class="card-body p-3">
+                <h4 class="text-uppercase text-center mb-5">Create Post Here!</h4>
+                
+                <p class="text-center" style="color:red; margin-top:-20px">
+                    {% for message in messages %}
+                    {{message}}
+                    {% endfor %}
+                </p>
+
+                <form action="predictResult" method = "POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="form-outline mb-4">
+                        <select class="select" name="manufacturer_name" id="manufacturer_name" required = "1">
+                            {% for manufacturer_name in manufacturer_names %}
+                            <option value="{{manufacturer_name}}">{{manufacturer_name }}</option>
+                            {% endfor %}  
+                        </select>
+                        <label class="form-label" for="manufacturer_name">Car Name</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <select class="select" name="model_name" id="model_name" required = "1" >
+                            {% for model_name in model_names %}
+                            <option value="{{model_name}}">{{model_name}}</option>
+                            {% endfor %}  
+                        </select>
+                        <label class="form-label" for="model_name">Model Name</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <select class="select" name="transmission">
+                            <option value="automatic"> Automatic</option>
+                            <option value="mechanical">Mechanical</option>
+                        </select>
+                        <label class="form-label" for="transmission">Transmission</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <select class="select" name="color">
+                            <option value="silver"> Silver</option>
+                            <option value="blue">Blue</option>
+                            <option value="red">red</option>
+                            <option value="black">Black</option>
+                            <option value="grey">Grey</option>
+                            <option value="brown">Brown</option>
+                            <option value="white">White</option>
+                            <option value="violet">Violet</option>
+                            <option value="orange">Orange</option>
+                            <option value="yellow">Yellow</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <label class="form-label" for="color">Color</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input name="odometer_value" type="text" id="odometer_value" class="form-control form-control-lg" required />
+                        <label class="form-label" for="Odometer Value">Kilometers Run</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <select class="select" name="year_produced" id="year_produced" ></select>
+                        <label class="form-label" for="year_produced">Year of Manufacture</label>
+                        </div>
+
+                    <div class="form-outline mb-4">
+                        <select class="select" name="engine_type">
+                            <option value="gasoline"> Gasoline</option>
+                            <option value="diesel">Diesel</option>
+                            <option value="electric">Electric</option>
+                        </select>
+                        <label class="form-label" for="engine_type">Engine Type</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <select class="select" name="body_type">
+                            <option value="universal"> Universal</option>
+                            <option value="suv">SUV</option>
+                            <option value="sedan">Sedan</option>
+                            <option value="hatchback">Hatchback</option>
+                            <option value="liftback">Liftback</option>
+                            <option value="minivan">Minivan</option>
+                            <option value="minibus">Minibus</option>
+                            <option value="pickup">Pickup</option>
+                            <option value="van">Van</option>
+                            <option value="cabriolet">Cabriolet</option>
+                            <option value="limousine">Limousine</option>
+                            
+                        </select>
+                        <label class="form-label" for="body_type">Body Type</label>
+                    </div>
+
+                    
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-block btn-lg gradient-custom-4 text-body">Predict</button>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <h4><span id="prediction"></span></h4>
+                    </div>
+
+                   
+
+                </form>
+
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+  
+<script>
+    const yearSelect = document.getElementById("year_produced");
+
+    function populateYears(){
+        //Get the current year as a number
+        let year = new Date().getFullYear();
+        //Make the previous 100 years be an option
+        for(let i = 0; i < 101; i++){
+            const option = document.createElement("option");
+            option.textContent = year - i;
+            yearSelect.appendChild(option);
+        }
+    }
+
+    populateYears();
+
+    {% comment %} function handle_form(event) {
+        event.preventDefault(); // Don't submit the form normally
+    }
+
+    function send_data()
+    {
+        document.querySelector('form').addEventListener("submit",form_handler);
+
+        var formData=new FormData(document.querySelector('form'));
+
+        var xMLHttpRequest= new XMLHttpRequest({mozSystem: true});
+
+        xMLHttpRequest.open('POST','/predictResult',true);
+        document.getElementById('prediction').innerHTML="Wait! Predicting Price.....";
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == XMLHttpRequest.DONE){
+                document.getElementById('prediction').innerHTML="Prediction: ₹"+xhr.responseText;
+
+            }
+        };
+
+        xhr.onload= function(){};
+
+        xhr.send(fd);
+    } {% endcomment %}
+
+
+    
+    
+</script>
+
+  {% endblock %}

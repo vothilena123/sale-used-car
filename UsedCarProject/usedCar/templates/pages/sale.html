@@ -1,0 +1,279 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Sale Page{% endblock %}
+
+{% block content %}
+
+<style>
+    .form-control-lg{
+        font-size:1rem;
+    }
+
+    .select{
+        min-height: calc(1.5em + (1rem + 2px));
+        padding: .5rem 1rem;
+        font-size: 1.25rem;
+        border-radius: .3rem;
+        width:100%;
+        font-size: 1rem;
+        border: 1px solid #ced4da;
+        font-family: 'Arsenal', sans-serif; 
+    }
+
+    .btn {
+        background-color: #b8babc!important;
+        font-family: 'Arsenal', sans-serif; 
+    }
+
+    input, label, textarea, p{
+        font-family: 'Arsenal', sans-serif; 
+    }
+
+   label{
+    color: coral;
+   }
+
+   .plus-icon{
+    color: lightskyblue;
+    font-size: 12px;
+   }
+
+   .add-picture{
+    color: lightskyblue;
+   }
+
+   .add-pic-button{
+    cursor: pointer;
+   }
+
+   .remove-icon{
+    cursor: pointer;
+   }
+
+   
+
+   
+
+</style>
+
+<section class="bg-image" style="background-color: #d2d6d8;">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+        <div class="container h-100 p-5">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-10 col-lg-9 col-xl-7" style="background-color: #fff;">
+            <div class="card" style="border-radius: 15px; background-color:unset; border: 0;">
+                <div class="card-body p-3">
+                <h4 class="text-uppercase text-center mb-5">Create Post Here!</h4>
+                
+                <form action="sale" method = "POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="form-outline mb-4">
+                    <input name="car_name" type="text" id="car_name" class="form-control form-control-lg " required />
+                    <label class="form-label" for="car_name">Car's Name</label>
+                    </div>
+
+                    {% comment %} <div class="form-outline mb-4">
+                    <input name="car_image" type="file" id="car_image" class="form-control form-control-lg" required />
+                    <label class="form-label" for="car_image">Car's Picture</label>
+                    </div> {% endcomment %}
+                    
+                    <div class="form-outline mb-4 ">
+                
+                        <img alt="" width="150" height="auto" id="preview-image">
+                        
+                        <input name="picture" type="file" id="picture" class="form-control form-control-lg mt-2" accept="preview-image/*" required />
+                        <div class="d-flex justify-content-between">
+                            <label class="form-label" for="picture">Car's Picture</label>  
+                           
+                        </div>
+                        
+                    </div>
+
+                    <div class="form-outline mb-4 " id="extra-pics-form">
+                        
+   
+                    </div>
+                    
+
+                   
+
+                    <div onclick="addImageAppear();" class="d-flex justify-content-end add-pic-button">
+                        <i class='fas fa-plus plus-icon pt-1'></i>
+                        <p class='add-picture ps-2'>Add Picture</p>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                    <select class="select" name="year" id="year" ></select>
+                    <label class="form-label" for="year">Year of Manufacture</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                    <select class="select" name="car_status">
+                        <option value="new">New Car</option>
+                        <option value="used">Used Car</option>
+                    </select>
+                    <label class="form-label" for="car_status">Car's Status</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                    <select class="select" name="transmission">
+                        <option value="manual">Manual Transmission</option>
+                        <option value="auto">Auto Transmission</option>
+                    </select>
+                    <label class="form-label" for="transmission">Transmission</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                    <select class="select" name="fuel">
+                        <option value="gasoline">Gasoline</option>
+                        <option value="diesel">Diesel</option>
+                        <option value="liquified_petroleum">Liquified Petroleum</option>
+                        <option value="natural">Compressed Natural Gas</option>
+                        <option value="ethanol">Ethanol</option>
+                        <option value="bio_diesel">Bio-diesel</option>
+                    </select>
+                    <label class="form-label" for="fuel">Fuel</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input name="color" type="text" id="color" class="form-control form-control-lg" required />
+                        <label class="form-label" for="color">Color</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input name="km_run" type="text" id="km_run" class="form-control form-control-lg" required />
+                        <label class="form-label" for="km_run">Kilometers Run (KM)</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input name="location_sell" type="text" id="location_sell" class="form-control form-control-lg" required />
+                        <label class="form-label" for="location_sell">Location Sell</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <input name="car_price" type="text" id="car_price" class="form-control form-control-lg" required />
+                        <label class="form-label" for="car_price">Car's Price</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                        <textarea id="description" name="description" rows="3"  class="form-control form-control-lg"></textarea>
+                        <label class="form-label" for="description">Description</label>
+                    </div>
+
+
+
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-block btn-lg gradient-custom-4 text-body">Upload Post</button>
+                    </div>
+
+                   
+
+                </form>
+
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+  
+<script>
+    const yearSelect = document.getElementById("year");
+
+    function populateYears(){
+        //Get the current year as a number
+        let year = new Date().getFullYear();
+        //Make the previous 100 years be an option
+        for(let i = 0; i < 101; i++){
+            const option = document.createElement("option");
+            option.textContent = year - i;
+            yearSelect.appendChild(option);
+        }
+    }
+
+    populateYears();
+
+
+    
+
+
+    document.getElementById('picture').onchange = function () {
+        var src = URL.createObjectURL(this.files[0])
+        document.getElementById('preview-image').src = src
+    }
+
+          
+
+
+
+    function addImageAppear(){
+        const extraEreaForm = document.getElementById('extra-pics-form');
+        const labelAndRemoveIcon = document.getElementById('labelAndRemoveIcon')
+        if (extraEreaForm){
+
+            const extraErea = document.createElement("div");
+            extraErea.className = "extra-pics";
+
+            const preview=document.createElement("img");
+            preview.style.width="150px";
+            preview.style.height="auto";
+            preview.style.marginBottom="0.5rem"
+
+            const newInput=document.createElement("input");
+            newInput.type="file";
+            newInput.name="file[]";
+            newInput.required="true";
+            newInput.className="form-control form-control-lg";
+
+            const labelAndRemoveIcon = document.createElement("div");
+            labelAndRemoveIcon.id="labelAndRemoveIcon";
+            labelAndRemoveIcon.className="d-flex justify-content-between";
+
+            labelAndRemoveIcon.innerHTML=`
+                <label class="form-label" for="car_image">Car's Picture</label>  
+                <div onclick="removeInputField();">
+                    <i class="material-icons text-success remove-icon" >remove_circle</i>
+                </div>
+                
+            `;
+            
+
+            newInput.onchange=function (ev1) {
+                if(this.files && this.files[0]){
+                    var fileReader=new FileReader();
+    
+                    fileReader.onload=function (ev2) {
+                        preview.src=ev2.target.result;
+
+                    };
+                    
+                    fileReader.readAsDataURL(this.files[0])
+
+                }
+            };
+
+            extraEreaForm.appendChild(extraErea);
+            extraErea.appendChild(preview);
+            extraErea.appendChild(newInput);
+            extraErea.appendChild(labelAndRemoveIcon);
+
+
+        }
+    }
+
+    
+    function removeInputField() {
+        const element = document.querySelector(".extra-pics");
+        element.remove();
+    }
+    
+
+
+
+    
+    
+</script>
+
+  {% endblock %}

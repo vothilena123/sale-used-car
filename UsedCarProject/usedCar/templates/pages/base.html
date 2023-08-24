@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'assets/bootstrap-css/bootstrap.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'assets/css/css-sheet.css' %}" type="text/css" />      
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script src="https://kit.fontawesome.com/b43c192976.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.min.css"
+    />
+    <script src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js"></script>
+    <title>{% block title %}{% endblock %}</title> </title>
+    
+    <style>
+      .search-field{
+        z-index: 1;
+      }
+    </style>
+    
+</head>
+<body>
+    
+    <div class="header">
+        <div class="container-fluid" >
+            <div class="navbar_pc" >
+                <div class="row">
+                    <div class="col-md-2" style="text-align: end">
+                       <img src="static/images/car.png" alt="" width="150px">
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="nav">
+                            <li class="nav-item active">
+                              <a class="nav-link" href="/">Home</a>
+                            </li>                 
+                            <li class="nav-item">
+                              <a class="nav-link" href="/sale">Post Sale</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="/blog">Blog</a>
+                            </li>
+                            <li class="nav-item-multiple">
+                              <a class="nav-link" href="#">Facilities</a>      
+                              <ul class="subnav">
+                                <li class="nav-item">
+                                  <a class="nav-link" href="/predict">Price Prediction</a>      
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" href="/msearch">Most Searched Cars</a>      
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" href="/about">About us</a>      
+                                </li>
+                              </ul>                 
+                            </li> 
+                          </ul>
+                    </div>
+                    <div class="col-md-5">
+                      <form action="/carSearched" method="POST">
+                        {% csrf_token %}
+                        <div class="input-group rounded">
+                             <input type="text" name="search-car-name" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                              <span class="input-group-text border-0" id="search-addon">
+                                <button style="border: 0px;" type ="submit">
+                                  <i class="fas fa-search"></i>
+                                </button>
+                              </span>                                                  
+                        </div>
+                      </form>
+                    </div>
+                    <div class="col-md-1" style="text-align: center">
+                        
+                        <div class="user">
+                          <a class= "user-link" href="#" style="color: #333;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person person-icon" viewBox="0 0 16 16" style='cursor: pointer'>
+                              <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                            </svg> 
+                            {% comment %} <img src="{{user_profile.profileImage.url}}" class="header-avatar" alt=""> {% endcomment %}
+
+                          </a>
+                          <ul class="user-subnav"> 
+                            <div class ='user-info d-flex'>
+                              <div>
+                                <img src="{{user_profile.profileImage.url}}" class="header-avatar" alt="">
+                              </div> 
+                              <div style="text-align: start; padding-left: 20px;">
+                                <p style="margin-bottom: 0px; font-weight: 700;">{{user.username}}</p>
+                                <p style="margin-bottom: 0px; font-weight: 700;">{{user.email}}</p>
+                              </div>
+                            </div>  
+                              
+                            <hr>
+                          
+                            <li class="nav-item">
+                              <a class="nav-link" href="/accountSettings">Account Settings</a>      
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="/profile/{{user_profile.user}}">Personal Page</a>      
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="/logout">Logout</a> 
+                            </li>
+                          </ul>
+                        </div>
+                        
+                        
+                    </div>
+    
+                </div>
+            </div>
+
+            <div class="navbar_tablet" >
+              <div class="container">
+                <div class="row" style="display: flex;">
+                  <div class="col-3 d-flex align-items-center menu-bar" >
+                    <i style = "color: black " class="fas fa-bars "></i> 
+                    
+                  </div>
+                  <div class="col-6 car-logo" style="text-align: center">
+                    <img src="./static/images/car.png" alt="" width="150px">
+                  </div>
+                  <div class="col-3 d-flex align-items-center justify-content-end search-icon" >
+                    
+                    <i class="fas fa-search "></i>
+
+                  </div>
+              </div>
+              </div>
+                
+            </div>
+
+            
+            
+        </div>
+    </div>
+
+
+    <div class="banner">
+      <div class="banner_pc">
+        <div class="container-fluid" style= "padding-left: 0px; position: relative; padding-right: 0px;">
+          <img src="./static/images/car1.png" alt="" style="max-width:101%; "> 
+          <h1>Buying and selling used cars made easy with UCAR</h1>
+        </div>
+      </div>
+      <div class="banner_tablet ">
+        <div class="container-fluid" style= "padding-left: 0px; position: relative; padding-right: 0px;">
+          <video src="./static/images/lambo1.mp4" autoplay muted loop ></video>      
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="menu  scroller">
+      <ul class="nav-group">
+          <li><a href="/">Home</a></li>
+          <li><a href="/predict">Price Prediction</a></li>
+          <li><a href="/msearch">Most Searched Cars</a></li>
+          <li><a href="/sale">Post Sale</a></li>
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/about">About App</a></li>
+
+          <hr class="mt-4" style="color:#faebd782;">
+
+          <li class="pb-2 pt-1"><a href="/card">
+            <i class="fas fa-shopping-cart me-2"></i>
+            Cart
+          </a></li>
+
+          <hr style="color:#faebd782;">
+
+          <li >
+            <div class="about-me pt-1">
+              {% comment %} <i class="fas fa-user me-2"></i> {% endcomment %}
+              <img src="{{user_profile.profileImage.url}}" class="me-2 rounded-circle" width="30px" height="30px" alt="">
+              About Me
+              <i class="fas fa-angle-down ms-2"></i>
+            </div> 
+          </li>
+
+          <div class="sub-menu pt-2">
+            <div class="sub-menu-items ps-0">
+              <ul class=" ps-0">
+                <li>
+                  <a href="/profile/{{user_profile.user}}">Personal Page
+                    <i class="fas fa-long-arrow-alt-up ps-1 pe-2" style="transform: rotate(40deg); font-size: 12px;"></i>
+                  </a>      
+                </li>
+                
+                <li>
+                  <a href="/logout">Logout
+                    <i class="fas fa-long-arrow-alt-up ps-1 pe-2" style="transform: rotate(40deg); font-size: 12px;"></i>
+                  </a> 
+                </li>
+              </ul>
+            </div>
+            
+          </div>  
+     </ul> 
+    </div>
+
+    <div class="search-field ">
+      <div class="inside-search-field">
+        <form class="search-form d-flex" action="">
+          <div class="col-1 text-center">
+            <i class="fas fa-search sub-search-icon " ></i>
+          </div>
+          <input type="text" class="col-10 input-search" placeholder="Search Car Here">
+          <div class="col-1 next-arrow text-center">
+            <i class="fas fa-angle-right" ></i>
+          </div>
+        </form>
+        <hr style="height:1.5px; color:antiquewhite; ">
+      </div>
+      
+
+    </div>
+    
+    {% block content %}
+
+    {% endblock %}
+
+   
+
+      <footer class="text-center text-white mt-5" style="background-color:rgba(0, 0, 0, 0.2);">
+      <!-- Grid container -->
+      <div class="container pt-4">
+        <!-- Section: Social media -->
+        <section class="mb-4">
+          <!-- Facebook -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-dark m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+    
+          <!-- Twitter -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-dark m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-twitter"></i
+          ></a>
+    
+          <!-- Google -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-dark m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-google"></i
+          ></a>
+    
+          <!-- Instagram -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-dark m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-instagram"></i
+          ></a>
+    
+          <!-- Linkedin -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-dark m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+          <!-- Github -->
+          <a
+            class="btn btn-link btn-floating btn-lg text-dark m-1"
+            href="#!"
+            role="button"
+            data-mdb-ripple-color="dark"
+            ><i class="fab fa-github"></i
+          ></a>
+        </section>
+        <!-- Section: Social media -->
+      </div>
+      <!-- Grid container -->
+    
+      <!-- Copyright -->
+      <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2); ">
+        © 2023 Copyright:
+        <a class="text-dark" href="#">NaVTLGCS190745@fpt.edu.vn</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+      
+    
+
+    <script>
+      const menubarBtn = document.querySelector ('.navbar_tablet .menu-bar')
+      menubarBtn.addEventListener('click', function(){
+      document.querySelector('.menu').classList.toggle('active')
+      })
+
+      const aboutMe = document.querySelector ('.about-me')
+      aboutMe.addEventListener('click', function(){
+      document.querySelector('.sub-menu-items').classList.toggle('active')
+      })
+
+      const searchBtn = document.querySelector ('.navbar_tablet .search-icon')
+      searchBtn.addEventListener('click', function(){
+      document.querySelector('.search-field').classList.toggle('active')
+      })
+
+      const userBtn = document.querySelector ('.user')
+      userBtn.addEventListener('click', function(){
+      document.querySelector('.user-subnav').classList.toggle('active')
+      })
+
+    </script>
+    
+</body>
+</html>
